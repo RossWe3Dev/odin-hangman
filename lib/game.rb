@@ -12,7 +12,7 @@ class Game
   end
 
   def pick_random_word
-    File.readlines("google-10000-english-no-swears.txt").select { |word| word.length > 4 && word.length < 13 }.sample.chomp # rubocop:disable Layout/LineLength
+    File.readlines("google-10000-english-no-swears.txt").select { |word| word.length.between?(6, 13) }.sample.chomp
   end
 
   def play
