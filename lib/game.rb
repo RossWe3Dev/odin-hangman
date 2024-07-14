@@ -1,5 +1,7 @@
+require "colorize"
+
 class Game
-  attr_accessor :secret_word, :current_guess, :guessed_letters, :lives_left, :dashes
+  attr_reader :secret_word, :current_guess, :guessed_letters, :lives_left, :dashes
 
   def initialize
     @secret_word = nil
@@ -24,13 +26,7 @@ class Game
     display_game_over_msg
   end
 
-  # def game_loop
-  #   loop do
-  #     display_guessed_letters
-  #     player_guess
-  #     break if game_over? || win?
-  #   end
-  # end
+  private
 
   def display_guessed_letters
     puts "\nThese are the letters you've tried: #{@guessed_letters}" unless @guessed_letters.empty?
@@ -41,19 +37,19 @@ class Game
   end
 
   def player_guess
-    puts "\nYou have #{lives_left} lives left. What letter do you want to guess?"
+    puts "\nYou have #{lives_left} lives left. What letter do you want to guess?".colorize(:cyan)
     loop do
       @current_guess = gets.chomp.downcase.strip[0]
       break unless @guessed_letters.include?(@current_guess)
 
-      puts "You already guessed this letter, try again!"
+      puts "You already guessed this letter, try again!".colorize(:magenta)
     end
     @guessed_letters << @current_guess
     incorrect_guess unless @secret_word.include?(@current_guess)
   end
 
   def incorrect_guess
-    puts "This letter is not in the secret word, you lost a life :("
+    puts "This letter is not in the secret word, you lost a life :(".colorize(:magenta)
     @lives_left -= 1
   end
 
@@ -66,7 +62,7 @@ class Game
   end
 
   def display_game_over_msg
-    puts "Congratulations, you won!" if win?
-    puts "You lost :( The word was #{@secret_word}" unless win?
+    puts "Congratulations, you won!".colorize(:green) if win?
+    puts "You lost :( The word was #{@secret_word}".colorize(:magenta) unless win?
   end
 end

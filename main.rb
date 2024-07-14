@@ -13,7 +13,7 @@ def play_again
   if gets.chomp.downcase == "y"
     play_game
   else
-    puts "Thanks for playing!".colorize(:green)
+    puts "Thanks for playing!".colorize(:magenta)
   end
 end
 
