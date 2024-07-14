@@ -1,7 +1,20 @@
-puts "Let's play Hangman"
+require "colorize"
+require_relative "lib/game"
 
-def pick_random_word
-  File.readlines("google-10000-english-no-swears.txt").select { |word| word.length > 4 && word.length < 13 }.sample
+def play_game
+  puts "Let's play Hangman".colorize(:green)
+  hangman = Game.new
+  hangman.play
+  play_again
 end
 
-puts pick_random_word
+def play_again
+  puts "Press 'y' to play again :) [y/quit]".colorize(:green)
+  if gets.chomp.downcase == "y"
+    play_game
+  else
+    puts "Thanks for playing!".colorize(:green)
+  end
+end
+
+play_game
