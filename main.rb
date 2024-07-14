@@ -9,7 +9,7 @@ def play_game
 end
 
 def play_again
-  puts "Press 'y' to play again :) [y/quit]".colorize(:green)
+  puts "\nPress 'y' to play again :) [y/quit]".colorize(:green)
   if gets.chomp.downcase == "y"
     play_game
   else

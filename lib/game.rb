@@ -62,7 +62,7 @@ class Game
   end
 
   def display_game_over_msg
-    puts "Congratulations, you won!".colorize(:green) if win?
-    puts "You lost :( The word was #{@secret_word}".colorize(:magenta) unless win?
+    puts "\nCongratulations, you won!".colorize(:green) if win?
+    puts "\nYou are out of lives :( The word was #{@secret_word}".colorize(:magenta) unless win?
   end
 end
