@@ -5,7 +5,7 @@ class Game
   attr_reader :secret_word, :guessed_letters, :dashes, :lives_left, :current_guess, :saved_file
 
   def initialize
-    if File.exist?("saved_game.txt") && !File.empty?("saved_game.txt")
+    if File.exist?("saved_game.json") && !File.empty?("saved_game.json")
       load_game
     else
       @secret_word = pick_random_word
@@ -18,14 +18,14 @@ class Game
   end
 
   def load_game
-    data = JSON.parse(File.read("saved_game.txt"))
+    data = JSON.parse(File.read("saved_game.json"))
     @secret_word = data["secret_word"]
     @guessed_letters = data["guessed_letters"]
     @dashes = data["dashes"]
     @lives_left = data["lives_left"]
     @current_guess = nil
     @saved_file = false
-    File.open("saved_game.txt", "w") { |file| file.truncate(0) }
+    File.open("saved_game.json", "w") { |file| file.truncate(0) }
   end
 
   def play
@@ -48,7 +48,7 @@ class Game
       dashes: @dashes,
       lives_left: @lives_left
     }
-    File.write("saved_game.txt", JSON.generate(data))
+    File.write("saved_game.json", JSON.generate(data))
     puts "Game saved successfully!"
     @saved_file = !@saved_file
   end
