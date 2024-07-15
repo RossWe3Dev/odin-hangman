@@ -3,6 +3,6 @@
 
 - Words are taken randomly from: [google-1000-english](https://raw.githubusercontent.com/first20hours/google-10000-english/master/google-10000-english-no-swears.txt)
 
-View on [Replit](https://replit.com/@RossWe3dev/odin-hangman)
+View on [Replit](https://replit.com/@RossWe3dev/RossWe3dev-Hangman)
 
 By RossWe3Dev
