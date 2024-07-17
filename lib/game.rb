@@ -49,7 +49,7 @@ class Game
       lives_left: @lives_left
     }
     File.write("saved_game.json", JSON.generate(data))
-    puts "Game saved successfully!"
+    puts "\nGame saved successfully!".colorize(:green)
     @saved_file = !@saved_file
   end
 
@@ -70,19 +70,28 @@ class Game
   def handle_player_input
     puts "\nEnter 'save' if you want to save and exit the game".colorize(:green)
     puts "You have #{lives_left} lives left. What letter do you want to guess?".colorize(:cyan)
-    input = gets.chomp.downcase.strip
+    input = valid_input?
     input == "save" ? save_game : @current_guess = input[0]
   end
 
-  def handle_player_guess
+  def valid_input?
     loop do
-      break unless @guessed_letters.include?(@current_guess)
+      input = gets.chomp.downcase.strip
+      if input.match?(/[a-z]/)
+        return input unless input != "save" && @guessed_letters.include?(input[0])
 
-      puts "You already guessed this letter, try again!".colorize(:magenta)
-      @current_guess = gets.chomp.downcase.strip[0]
+        puts "You already guessed this letter, try again!".colorize(:magenta)
+      else
+        puts "Invalid input! Please enter a letter (a-z) or 'save'".colorize(:red)
+      end
     end
+  end
+
+  def handle_player_guess
     @guessed_letters << @current_guess
-    incorrect_guess unless @secret_word.include?(@current_guess)
+    return incorrect_guess unless @secret_word.include?(@current_guess)
+
+    puts "Good guess!".colorize(:green)
   end
 
   def incorrect_guess
